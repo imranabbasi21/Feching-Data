@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+</head>
+<body>
+    
+    <h1>Please Refresh Page</h1>
+    <h2>More Random Dog Images </h2>
+    <div id="dog-images"></div>
+
+    <script>
+        fetch('https://dog.ceo/api/breeds/image/random/5')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+     
+                const dogImages = data.message;
+                const dogImagesContainer = document.getElementById('dog-images');
+
+                dogImages.forEach(imageUrl => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgElement.alt = 'Random Dog Image';
+                    dogImagesContainer.appendChild(imgElement);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>
+
+
